@@ -1,12 +1,15 @@
 # load additional Python module
 import socket
-
 import websockets
 import asyncio
 from pymouse import PyMouse
-from pykeyboard import PyKeyboard
 import json
 import time
+import pyscreenshot as ImageGrab
+from PIL import Image
+import requests
+import base64
+from io import BytesIO
 
 # create TCP/IP socket
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -40,14 +43,16 @@ async def hello(websocket, path):
     coords = await websocket.recv()
     print(f"< {coords}")
     dimension = coords[1:-1].split(',')
-    print(dimension)
+    print('[INFO]: dimension')
     m = PyMouse()
-    k = PyKeyboard()
+    im = ImageGrab.grab()
+    im.save('screenshot.png')
+    im.show()
     x_dim, y_dim = m.screen_size()
 
     m.click(x_dim * float(dimension[0]), y_dim * float(dimension[1]))
 
-start_server = websockets.serve(hello, '169.231.167.2', 23456)
+start_server = websockets.serve(hello, '10.30.3.126', 23456)
 
 asyncio.get_event_loop().run_until_complete(start_server)
 asyncio.get_event_loop().run_forever()
