@@ -47,15 +47,23 @@ nav {
 <script>
 	$(document).ready(function() {
     var connection = new WebSocket('ws://169.231.167.2:23456');
+    // var connection = new WebSocket('ws://127.0.0.1:23457');
     let same = false
 
-    connection.onopen = function () {
-      console.log("betsa")
-      // connection is opened and ready to use
-      same = true
-      connection.send(JSON.stringify(data))
-    };
-      
+    // connection.onopen = function () {
+    //   console.log("betsa")
+    //   // connection is opened and ready to use
+    //   same = true
+    //   console.log("I'm going to log some data", data);
+    //   connection.send(JSON.stringify(data))
+    // };
+
+    connection.addEventListener('open', function (event) {
+      // console.log("I'm in the event listener now...");
+      // connection.send('!!!!!!!!!!Hello Server!!!!!!!!!!!!!!');
+      // connection.send(JSON.stringify(data))
+    });
+
     $("img").on("click", function(event) {
       var x = event.pageX - this.offsetLeft;
       var y = event.pageY - this.offsetTop;
@@ -64,6 +72,9 @@ nav {
     	// console.log(this.height, y/this.height)
     	const data = [x/this.width, y/this.height]
 		  console.log(JSON.stringify(data))
+      console.log(connection.readyState)
+      connection.send(JSON.stringify(data))
+
 
 
       connection.onerror = function (error) {
