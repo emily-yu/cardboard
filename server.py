@@ -41,7 +41,7 @@ async def hello(websocket, path):
 	coords = await websocket.recv()
 	print(f"< {coords}")
 	dimension = coords[1:-1].split(',')
-	print('[INFO]: dimension')
+	print('[INFO]:' , dimension)
 	m = PyMouse()
 	x_dim, y_dim = m.screen_size()
 	m.click(x_dim * float(dimension[0]), y_dim * float(dimension[1]))

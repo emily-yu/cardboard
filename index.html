@@ -47,8 +47,7 @@ nav {
 <script>
 	$(document).ready(function() {
     var connection = new WebSocket('ws://10.30.3.126:23456');
-    // var connection = new WebSocket('ws://127.0.0.1:23457');
-    let same = false
+    // var connection = new WebSocket('ws://127.0.0.1:23456');
 
     // connection.onopen = function () {
     //   console.log("betsa")
@@ -65,19 +64,18 @@ nav {
     });
 
     $("img").on("click", function(event) {
+      console.log("User clicks")
       var x = event.pageX - this.offsetLeft;
       var y = event.pageY - this.offsetTop;
-      console.log("User clicks")
     	// console.log(this.width, x/this.width)
     	// console.log(this.height, y/this.height)
     	const data = [x/this.width, y/this.height]
 		  console.log(JSON.stringify(data))
-      console.log('[INFO] ready state: ', connection.readyState)
+      // console.log('[INFO] ready state: ', connection.readyState)
       connection.send(JSON.stringify(data))
 
       connection.onerror = function (error) {
-        console.log("alpha")
-        // an error occurred when sending/receiving data
+        console.log("an error occurred when sending/receiving data")
       };
 
       connection.onmessage = function (message) {
