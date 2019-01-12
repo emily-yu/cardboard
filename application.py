@@ -15,6 +15,7 @@ def root():
 @application.route('/receive_screenshot', methods=['POST'])
 def receive_screenshot():
 	# print(type(request.files['screenshot']))
+	# print(request.json)
 	img = Image.open(request.files['screenshot'])
 	# img.show()	
 

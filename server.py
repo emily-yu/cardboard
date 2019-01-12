@@ -1,7 +1,7 @@
 # load additional Python module
 import socket
 from pymouse import PyMouse
-from pykeyboard import PyKeyboard
+# from pykeyboard import PyKeyboard
 
 # create TCP/IP socket
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
