@@ -1,0 +1,9 @@
+Package: com.kevin.touchsimulate
+Name: touchsimulate
+Depends: mobilesubstrate
+Version: 0.0.1
+Architecture: iphoneos-arm
+Description: An awesome MobileSubstrate tweak!
+Maintainer: CustomTouchSimulator
+Author: CustomTouchSimulator
+Section: Tweaks
