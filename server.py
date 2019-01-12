@@ -22,7 +22,7 @@ local_fqdn = socket.getfqdn()
 # ip_address = socket.gethostbyname(local_hostname)
 ip_address = socket.gethostbyname("127.0.0.1")
 
-# output hostname, domain name and IP address
+# output hostname, domain name and IP address - change to unique IP address
 print ("working on %s (%s) with %s" % (local_hostname, local_fqdn, ip_address))
 
 # bind the socket to the port 23456
@@ -31,17 +31,12 @@ print ('starting up on %s port %s' % server_address)
 sock.bind(server_address)
 
 # listen for incoming connections (server mode) with one connection at a time
-sock.listen(1)
-
-width = None
-height = None
-image_base64 = ''
-
-async def hello(websocket, path):
+sock.listen(2)
+ 
+async def run_server(websocket, path):
 	coords = await websocket.recv()
-	print(f"< {coords}")
+	print(f"Received from client {coords}")
 	dimension = coords[1:-1].split(',')
-	print('[INFO]:' , dimension)
 	m = PyMouse()
 	x_dim, y_dim = m.screen_size()
 	m.click(x_dim * float(dimension[0]), y_dim * float(dimension[1]))
@@ -57,7 +52,8 @@ async def hello(websocket, path):
 	payload = {"base64": image_base64.decode('utf-8')}
 	return payload
 
-start_server = websockets.serve(hello, '10.30.3.126', 23456)
+start_server = websockets.serve(run_server, '10.30.3.126', 23456)
+# websockets.serve(run_server, '10.30.3.126', 23456)
 
 asyncio.get_event_loop().run_until_complete(start_server)
 asyncio.get_event_loop().run_forever()
