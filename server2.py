@@ -7,14 +7,19 @@ import json
 
 app = Flask(__name__)
 image_base64 = ''
+ngrok_urls = {
+	'0':'http://d950ef13.ngrok.io',
+	'1':'http://a43e7038.ngrok.io',
+	'2':'http://cd816011.ngrok.io'
+}
 
 #add a constant with ngrok urls as a dictionary and use that to decide 'temp'
 def connect_device(x, y, uniq_id):
-	data = urllib.urlencode({'x': x, 'y': y, 'uniq_id': uniq_id})
-	headers = {"Content-type": "application/x-www-form-urlencoded", "Accept": "text/plain"}
-	h.request('POST', 'temp', data, headers)
-	r = h.getresponse()
-	return r
+	data = {'x': x, 'y': y, 'uniq_id': uniq_id}
+	url = ngrok_urls[uniq_id] + '/screenshot'
+	jdata = json.dumps(data)
+	response = requests.post(url, data=jdata)
+	return response.json()
 
 @app.route('/')
 def root():
@@ -24,7 +29,7 @@ def root():
 def get_coordinates():
 	data = json.loads(request.data.decode('utf-8'))
 	base64 = connect_device(data['coordinates'][0], data['coordinates'][1], data['uniq_id'])
-	return base64
+	return jsonify({"base64":base64})
 
 
 # @app.route('/receive_screenshot', methods=['POST'])

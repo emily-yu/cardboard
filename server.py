@@ -23,7 +23,6 @@ def screenshot():
     #CHANGE THIS ON EACH COMP LATER
     my_id = '0'
     data = json.loads(request.data.decode('utf-8'))
-    print (data)
     x = data['x']
     y = data['y']
     uniq_id = data['uniq_id']

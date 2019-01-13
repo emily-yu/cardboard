@@ -46,21 +46,17 @@ AAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO
 
 </body>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>  
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script>
 	$(document).ready(function(){
 
     // var connection = new WebSocket('ws://127.0.0.1:23456');
-      var connection = new WebSocket('ws://596d22a0.ngrok.io');
-      
-      connection.onmessage = function (event) {
-          // console.log(event.data);
-          // document.getElementById("demo").src = "screenshot.png";
-          document.getElementById("demo").src = "data:image/png;base64, " + event.data;
-      }
+      var connection = new WebSocket('ws://1b4a8072.ngrok.io');
+
+      document.getElementById("demo").src = "data:image/png;base64, " + event.data;
 
       $("img").on("click", function(event) {
-        
+
         var x = event.pageX - this.offsetLeft;
         var y = event.pageY - this.offsetTop;
         // console.log(this.width, x/this.width)
@@ -72,11 +68,11 @@ AAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO
         connection.send(JSON.stringify(data))
         connection.onerror = function (error) {
           console.log("an error occurred when sending/receiving data")
-          // document.getElementById("background_image").innerHTML = ipad_screenshot.jpg; 
+          // document.getElementById("background_image").innerHTML = ipad_screenshot.jpg;
         };
        }
      );
-  });   
+  });
 
     // connection.onopen = function () {
     //   console.log("betsa")
@@ -92,7 +88,7 @@ AAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO
     //   connection.send(JSON.stringify(data))
     // });
 
-      
+
 
       // connection.onmessage = function (message) {
       //   console.log(JSON.stringify(data))

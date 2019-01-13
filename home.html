@@ -33,13 +33,13 @@ AAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO
     9TXL0Y4OHwAAAABJRU5ErkJggg==" alt="Red dot">
 
 <nav>
-  <div class = 'option' id='1' > 
+  <div class = 'option' id='1' >
     1
   </div>
-  <div class = 'option' id='2'> 
+  <div class = 'option' id='2'>
     2
   </div>
-  <div class = 'option' id='3'> 
+  <div class = 'option' id='3'>
     3
   </div>
 </nav>
@@ -73,7 +73,7 @@ AAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO
 				console.log(JSON.stringify(full_data))
 
         var xhr = new XMLHttpRequest();
-        xhr.open("POST", 'http://localhost:5000/get_coordinates', true);
+        xhr.open("POST", 'http://055b0ed2.ngrok.io/get_coordinates', true);
         xhr.setRequestHeader('Content-Type', 'application/json');
         xhr.send(JSON.stringify(full_data));
 
