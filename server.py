@@ -1,4 +1,10 @@
+<<<<<<< HEAD
     # load additional Python module
+=======
+# load additional Python module
+from flask import Flask, jsonify, request
+import requests
+>>>>>>> 6b3c9e642fc3825bfc78aaeddd75c0ae5cdf2bff
 import socket
 import websockets
 import asyncio
@@ -11,74 +17,42 @@ import base64
 from io import BytesIO
 import json
 
-# create TCP/IP socket
-# sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+app = Flask(__name__)
 
-# # retrieve local hostname
-# local_hostname = socket.gethostname()
+@app.route('/')
+def root():
+    return '/screenshot pls'
 
-# # get fully qualified hostname
-# local_fqdn = socket.getfqdn()
+@app.route('/screenshot', methods=['POST'])
+def screenshot():
+    #CHANGE THIS ON EACH COMP LATER
+    my_id = '0'
+    data = json.loads(request.data.decode('utf-8'))
+    print (data)
+    x = data['x']
+    y = data['y']
+    uniq_id = data['uniq_id']
 
-# # get the according IP address
-# # ip_address = socket.gethostbyname(local_hostname)
-# ip_address = socket.gethostbyname("127.0.0.1")
+    if(my_id != uniq_id):
+        return "lmao"
 
-# # output hostname, domain name and IP address - change to unique IP address
-# print ("working on %s (%s) with %s" % (local_hostname, local_fqdn, ip_address))
+    # this clicks
+    m = PyMouse()
+    x_dim, y_dim = m.screen_size()
+    m.click(x_dim * x, y_dim * y)
 
-# # bind the socket to the port 23456
-# server_address = (ip_address, 23456)
-# print ('starting up on %s port %s' % server_address)
-# sock.bind(server_address)
+    #this gets image into base64
+    img = ImageGrab.grab()
+    img.save('screenshot.png')
+    time.sleep(1.5)
 
-# # listen for incoming connections (server mode) with one connection at a time
-# sock.listen(3)
+    buffered = BytesIO()
+    img.save(buffered, format="PNG")
+    image_base64 = base64.b64encode(buffered.getvalue())
 
-current_socket = ''
-sockets = {}
-index = 0
+    payload = {"base64": image_base64.decode('utf-8')}
+    return jsonify(payload)
 
-async def run_server(websocket, path):
-    global index
-    global current_socket
+if __name__ == "__main__":
+    app.run(port=8000, debug=True)
 
-    if index not in sockets.keys():
-        sockets[index] = websocket
-    else:
-        current_socket = sockets[index]
-
-    while True:
-        data = await current_socket.recv() # await websocket.recv()
-        data = json.loads(data)
-        print (data)
-        coords = data['coords']
-
-        print(f"Received from client {coords}")
-
-        dimension = coords
-        m = PyMouse()
-        x_dim, y_dim = m.screen_size()
-        m.click(x_dim * float(dimension[0]), y_dim * float(dimension[1]))
-
-        img = ImageGrab.grab()
-        img.save('screenshot.png')
-        print(f'Took screenshot')
-        time.sleep(1.5)
-        # img.show()
-        buffered = BytesIO()
-        img.save(buffered, format="PNG")
-        image_base64 = base64.b64encode(buffered.getvalue())
-
-        await current_socket.send(image_base64.decode('utf-8')) # websocket.send(image_base64.decode('utf-8'))
-
-        payload = {"base64": image_base64.decode('utf-8')}
-        index = data['device']
-	# return payload
-
-start_server = websockets.serve(run_server, 'localhost', 23456)
-# start_server = websockets.serve(run_server, '10.30.3.126', 23456)
-# websockets.serve(run_server, '10.30.3.126', 23456)
-
-asyncio.get_event_loop().run_until_complete(start_server)
-asyncio.get_event_loop().run_forever()
