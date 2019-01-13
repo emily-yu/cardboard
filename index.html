@@ -65,7 +65,7 @@ AAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO
         var y = event.pageY - this.offsetTop;
         // console.log(this.width, x/this.width)
         // console.log(this.height, y/this.height)
-        const data = [x/this.width, y/this.height]
+        const data = [float(x/this.width), float(y/this.height)]
         console.log("Client clicks at: ", JSON.stringify(data))
 
         // connection.onopen = () => connection.send(JSON.stringify(data));

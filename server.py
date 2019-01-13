@@ -1,4 +1,4 @@
-# load additional Python module
+    # load additional Python module
 import socket
 import websockets
 import asyncio
@@ -45,8 +45,8 @@ async def run_server(websocket, path):
 
     if index not in sockets.keys():
         sockets[index] = websocket
-    # else:
-    current_socket = sockets[index]
+    else:
+        current_socket = sockets[index]
 
     while True:
         data = await current_socket.recv() # await websocket.recv()

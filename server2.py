@@ -21,10 +21,8 @@ def root():
 
 @app.route('/get_coordinates', methods=['POST'])
 def get_coordinates():
-	data = request.data
-	coords = data['coordinates']
-	uniq_id = data['uniq_id']
-	base64 = connect_device(coords[0], coords[1], uniq_id)
+	data = json.loads(request.data.decode('utf-8'))
+	base64 = connect_device(data['coordinates'][0], data['coordinates'][1], data['uniq_id'])
 	return base64
 
 
