@@ -39,9 +39,6 @@ AAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO
   <div class = 'option' id='2'>
     2
   </div>
-  <div class = 'option' id='3'>
-    3
-  </div>
 </nav>
 
 </body>
@@ -53,9 +50,11 @@ AAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO
 
 			$(".option").on('click', function(event){
         let id = currentState // 0
-        this.id, currentState = currentState, this.id // clicked object
-        document.getElementById(this.id).innerText = currentState
-        document.getElementById(this.id).id = currentState
+				let target = event.target
+				let temp = target.id
+				document.getElementById(target.id).innerText = currentState
+				document.getElementById(target.id).id = currentState
+				currentState = temp
 			});
 
       $("img").on("click", function(event) {
@@ -73,10 +72,17 @@ AAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO
 				console.log(JSON.stringify(full_data))
 
         var xhr = new XMLHttpRequest();
+				xhr.onreadystatechange = function() {
+					if (this.readyState == 4 && this.status == 200) {
+						const dictionary = JSON.parse(this.responseText)
+						const base64 = dictionary["base64"]["base64"]
+						document.getElementById("demo").src = "data:image/png;base64, " + base64;
+					}
+				};
+
         xhr.open("POST", 'http://055b0ed2.ngrok.io/get_coordinates', true);
         xhr.setRequestHeader('Content-Type', 'application/json');
         xhr.send(JSON.stringify(full_data));
-
        }
      );
   });

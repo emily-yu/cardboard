@@ -38,7 +38,7 @@ def screenshot():
     #this gets image into base64
     img = ImageGrab.grab()
     img.save('screenshot.png')
-    time.sleep(1.5)
+    time.sleep(0.2)
 
     buffered = BytesIO()
     img.save(buffered, format="PNG")
