@@ -27,14 +27,14 @@ def screenshot():
     x = data['x']
     y = data['y']
     uniq_id = data['uniq_id']
-
-    if(uniq_id == 3):
+    print (uniq_id, x, y)
+    if(uniq_id == '3'):
         print ("The actual fuck")
         same = PhoneShortCuts()
         same.touch(x, y)
         same.home()
         return jsonify({"same":"same"})
-    elif(uniq_id == 0):
+    elif(uniq_id == '0'):
         # this clicks
         m = PyMouse()
         x_dim, y_dim = m.screen_size()
@@ -52,7 +52,7 @@ def screenshot():
         payload = {"base64": image_base64.decode('utf-8')}
         return jsonify(payload)
     else:
-        return "lmao"
+        return jsonify({"somethingr ealy ufkced up happened":"lol"})
 
 
 if __name__ == "__main__":
