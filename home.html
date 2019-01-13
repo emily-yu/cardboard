@@ -61,8 +61,8 @@ AAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO
 					document.getElementById(id).innerHTML = temp
 			});
 
-    // var connection = new WebSocket('ws://127.0.0.1:23456');
-      var connection = new WebSocket('ws://10.30.3.126:23456');
+      var connection = new WebSocket('ws://934800cc.ngrok.io');
+      // new WebSocket('ws://10.30.3.126:23456');
 
       connection.onmessage = function (event) {
           document.getElementById("demo").src = "data:image/png;base64, " + event.data;
@@ -71,6 +71,8 @@ AAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO
           var key = e.keyCode ? e.keyCode : e.which;
           connection.send(String.fromCharCode(key))
       }
+
+      // connection.onopen = function(){}
 
       $("img").on("click", function(event) {
 
@@ -85,8 +87,8 @@ AAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO
 					'device':currentState
 				}
 				console.log(JSON.stringify(full_data))
-        // connection.onopen = () => connection.send(JSON.stringify(data));
-        connection.send(JSON.stringify(full_data))
+        connection.send(JSON.stringify(data));
+        // connection.send(JSON.stringify(full_data))
         connection.onerror = function (error) {
           console.log("an error occurred when sending/receiving data")
           // document.getElementById("background_image").innerHTML = ipad_screenshot.jpg;
