@@ -28,7 +28,9 @@ nav {
 }
 </style>
 
-<img id='demo' class = 'display' src="windows_screenshot.jpg">
+<img id='demo' class = 'display' src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAAUA
+AAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO
+    9TXL0Y4OHwAAAABJRU5ErkJggg==" alt="Red dot">
 
 <nav>
   <div class = 'option'>
@@ -46,14 +48,15 @@ nav {
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>  
 <script>
-	$(document).ready(function() {
+	$(document).ready(function(){
 
     // var connection = new WebSocket('ws://127.0.0.1:23456');
       var connection = new WebSocket('ws://10.30.3.126:23456');
       
       connection.onmessage = function (event) {
-          console.log(event.data);
-          document.getElementById("demo").src = "screenshot.png";
+          // console.log(event.data);
+          // document.getElementById("demo").src = "screenshot.png";
+          document.getElementById("demo").src = "data:image/png;base64, " + event.data;
       }
 
       $("img").on("click", function(event) {
@@ -64,8 +67,9 @@ nav {
         // console.log(this.height, y/this.height)
         const data = [x/this.width, y/this.height]
         console.log("Client clicks at: ", JSON.stringify(data))
-        connection.send(JSON.stringify(data))
 
+        // connection.onopen = () => connection.send(JSON.stringify(data));
+        connection.send(JSON.stringify(data))
         connection.onerror = function (error) {
           console.log("an error occurred when sending/receiving data")
           // document.getElementById("background_image").innerHTML = ipad_screenshot.jpg; 
