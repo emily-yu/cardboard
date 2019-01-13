@@ -29,9 +29,11 @@ def screenshot():
     uniq_id = data['uniq_id']
 
     if(uniq_id == 3):
+        print ("The actual fuck")
         same = PhoneShortCuts()
         same.touch(x, y)
         same.home()
+        return jsonify({"same":"same"})
     elif(uniq_id == 0):
         # this clicks
         m = PyMouse()
