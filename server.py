@@ -3,6 +3,7 @@ import socket
 import websockets
 import asyncio
 from pymouse import PyMouse
+from pykeyboard import PyKeyboard
 import time
 import pyscreenshot as ImageGrab
 from PIL import Image
@@ -39,10 +40,14 @@ async def run_server(websocket, path):
 
 		coords = await websocket.recv()
 		print(f"Received from client {coords}")
-		dimension = coords[1:-1].split(',')
-		m = PyMouse()
-		x_dim, y_dim = m.screen_size()
-		m.click(x_dim * float(dimension[0]), y_dim * float(dimension[1]))
+		if len(coords) > 1:
+			dimension = coords[1:-1].split(',')
+			m = PyMouse()
+			x_dim, y_dim = m.screen_size()
+			m.click(x_dim * float(dimension[0]), y_dim * float(dimension[1]))
+		else:
+			k = PyKeyboard()
+			k.tap_key(String.fromCharCode(coords))
 
 		img = ImageGrab.grab()
 		img.save('screenshot.png')

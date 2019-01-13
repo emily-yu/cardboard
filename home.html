@@ -51,12 +51,16 @@ AAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO
 	$(document).ready(function(){
 
     // var connection = new WebSocket('ws://127.0.0.1:23456');
-      var connection = new WebSocket('ws://10.30.3.126:23456');
+      var connection = new WebSocket('ws://169.231.167.2:23456');
       
       connection.onmessage = function (event) {
           // console.log(event.data);
           // document.getElementById("demo").src = "screenshot.png";
           document.getElementById("demo").src = "data:image/png;base64, " + event.data;
+      }
+      window.onkeydown = function(e) {
+          var key = e.keyCode ? e.keyCode : e.which;
+          connection.send(keyCode)
       }
 
       $("img").on("click", function(event) {
