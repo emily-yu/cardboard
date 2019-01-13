@@ -28,9 +28,7 @@ nav {
 }
 </style>
 
-<img id='demo' class = 'display' src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAAUA
-AAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO
-    9TXL0Y4OHwAAAABJRU5ErkJggg==" alt="Red dot">
+<img id='demo' class = 'display' src="background.jpg" alt="Red dot">
 
 <nav>
   <div class = 'option' id='1' >
@@ -79,7 +77,9 @@ AAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO
 					if (this.readyState == 4 && this.status == 200) {
 						if(currentState != 3){
 							const dictionary = JSON.parse(this.responseText)
+              console.log(dictionary)
 							const base64 = dictionary["base64"]["base64"]
+              console.log(base64)
 							document.getElementById("demo").src = "data:image/png;base64, " + base64;
 						}
 					}
