@@ -1,8 +1,8 @@
 # Cardboard
 
-Specs: 
+Specs:
 
-1. Client clicks on RPI 
+1. Client clicks on RPI
 1. Mouseclick coordinates sent through websocket
 1. Click on actual device based on relative coordinate position
 1. Screenshot of result rendered back to client (RPI)
