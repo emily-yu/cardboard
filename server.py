@@ -49,7 +49,7 @@ async def run_server(websocket, path):
         current_socket = sockets[index]
 
     while True:
-        data = await websocket.recv()
+        data = await current_socket.recv() # await websocket.recv()
         data = json.loads(data)
         print (data)
         coords = data['coords']
@@ -70,7 +70,7 @@ async def run_server(websocket, path):
         img.save(buffered, format="PNG")
         image_base64 = base64.b64encode(buffered.getvalue())
 
-        await websocket.send(image_base64.decode('utf-8'))
+        await current_socket.send(image_base64.decode('utf-8')) # websocket.send(image_base64.decode('utf-8'))
 
         payload = {"base64": image_base64.decode('utf-8')}
         index = data['device']
