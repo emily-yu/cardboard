@@ -8,6 +8,7 @@ import json
 app = Flask(__name__)
 image_base64 = ''
 
+#add a constant with ngrok urls as a dictionary and use that to decide 'temp'
 def connect_device(x, y, uniq_id):
 	data = urllib.urlencode({'x': x, 'y': y, 'uniq_id': uniq_id})
 	headers = {"Content-type": "application/x-www-form-urlencoded", "Accept": "text/plain"}
@@ -32,13 +33,13 @@ def get_coordinates():
 # def receive_screenshot():
 # 	# print(type(request.files['screenshot']))
 # 	img = Image.open(request.files['screenshot'])
-# 	# img.show()	
+# 	# img.show()
 
 # 	buffered = BytesIO()
 # 	img.save(buffered, format="JPEG")
 # 	global image_base64
 # 	image_base64 = base64.b64encode(buffered.getvalue())
-	
+
 # 	return jsonify({"Status": "Received Image"})
 
 # 	 # use some vision API?  https://stackoverflow.com/questions/47511021/passing-image-data-to-flask-server
@@ -50,7 +51,7 @@ def get_coordinates():
 # 	# img = screenshot_data['screenshot']
 # 	# print(type(img))
 
-# 	return jsonify({"base64": image_base64.decode('utf-8')}) #image_base64 # json.dumps(image_base64) 
+# 	return jsonify({"base64": image_base64.decode('utf-8')}) #image_base64 # json.dumps(image_base64)
 
-if __name__ == "__main__":  
+if __name__ == "__main__":
     app.run(debug=True)
