@@ -1,10 +1,5 @@
-<<<<<<< HEAD
-    # load additional Python module
-=======
-# load additional Python module
 from flask import Flask, jsonify, request
 import requests
->>>>>>> 6b3c9e642fc3825bfc78aaeddd75c0ae5cdf2bff
 import socket
 import websockets
 import asyncio
@@ -55,4 +50,3 @@ def screenshot():
 
 if __name__ == "__main__":
     app.run(port=8000, debug=True)
-
