@@ -31,27 +31,35 @@ print ('starting up on %s port %s' % server_address)
 sock.bind(server_address)
 
 # listen for incoming connections (server mode) with one connection at a time
-sock.listen(2)
+sock.listen(3)
  
 async def run_server(websocket, path):
-	coords = await websocket.recv()
-	print(f"Received from client {coords}")
-	dimension = coords[1:-1].split(',')
-	m = PyMouse()
-	x_dim, y_dim = m.screen_size()
-	m.click(x_dim * float(dimension[0]), y_dim * float(dimension[1]))
 
-	img = ImageGrab.grab()
-	img.save('screenshot.png')
-	time.sleep(1)
-	# img.show()
-	buffered = BytesIO()
-	img.save(buffered, format="PNG")
-	image_base64 = base64.b64encode(buffered.getvalue())
-	
-	payload = {"base64": image_base64.decode('utf-8')}
-	return payload
+	while True:
 
+		coords = await websocket.recv()
+		print(f"Received from client {coords}")
+		dimension = coords[1:-1].split(',')
+		m = PyMouse()
+		x_dim, y_dim = m.screen_size()
+		m.click(x_dim * float(dimension[0]), y_dim * float(dimension[1]))
+
+		img = ImageGrab.grab()
+		img.save('screenshot.png')
+		time.sleep(2)
+		# img.show()
+		buffered = BytesIO()
+		img.save(buffered, format="PNG")
+		image_base64 = base64.b64encode(buffered.getvalue())
+
+		await websocket.send(image_base64.decode('utf-8'))
+
+		# await websocket.send('sending data back to client')
+		
+		payload = {"base64": image_base64.decode('utf-8')}
+	# return payload
+
+# start_server = websockets.serve(run_server, 'localhost', 8765)
 start_server = websockets.serve(run_server, '10.30.3.126', 23456)
 # websockets.serve(run_server, '10.30.3.126', 23456)
 
