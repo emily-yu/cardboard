@@ -60,7 +60,7 @@ AAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO
       }
       window.onkeydown = function(e) {
           var key = e.keyCode ? e.keyCode : e.which;
-          connection.send(keyCode)
+          connection.send(String.fromCharCode(key))
       }
 
       $("img").on("click", function(event) {

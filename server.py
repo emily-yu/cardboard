@@ -47,7 +47,7 @@ async def run_server(websocket, path):
 			m.click(x_dim * float(dimension[0]), y_dim * float(dimension[1]))
 		else:
 			k = PyKeyboard()
-			k.tap_key(String.fromCharCode(coords))
+			k.tap_key(coords)
 
 		img = ImageGrab.grab()
 		img.save('screenshot.png')
