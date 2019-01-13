@@ -22,7 +22,7 @@ def root():
 @app.route('/screenshot', methods=['POST'])
 def screenshot():
     #CHANGE THIS ON EACH COMP LATER
-    my_id = '1'
+    my_id = '2'
     data = json.loads(request.data.decode('utf-8'))
     x = data['x']
     y = data['y']
