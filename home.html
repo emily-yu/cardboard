@@ -33,29 +33,38 @@ AAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO
     9TXL0Y4OHwAAAABJRU5ErkJggg==" alt="Red dot">
 
 <nav>
-  <div class = 'option'>
-    <img src="./windows_screenshot.jpg">
+  <div class = 'option' id='1'>
+		1
   </div>
-  <div class = 'option'>
-    <img src="windows_screenshot.jpg">
+  <div class = 'option'id='2'>
+		2
   </div>
-  <div class = 'option'>
-    <img src="windows_screenshot.jpg">
+  <div class = 'option'  id='3'>
+		3
   </div>
 </nav>
 
 </body>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>  
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script>
 	$(document).ready(function(){
+			var currentState = 0
+
+			$(".option").on('click', function(event){
+			    event.stopPropagation();
+			    event.stopImmediatePropagation();
+					var target = event.target
+					var id = target.id;
+					temp = currentState
+					currentState = parseInt(target.innerHTML)
+					document.getElementById(id).innerHTML = temp
+			});
 
     // var connection = new WebSocket('ws://127.0.0.1:23456');
-      var connection = new WebSocket('ws://10.30.3.126:23456');
-      
+      var connection = new WebSocket('ws://10.30.2.190:23456');
+
       connection.onmessage = function (event) {
-          // console.log(event.data);
-          // document.getElementById("demo").src = "screenshot.png";
           document.getElementById("demo").src = "data:image/png;base64, " + event.data;
       }
       window.onkeydown = function(e) {
@@ -64,55 +73,26 @@ AAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO
       }
 
       $("img").on("click", function(event) {
-        
+
         var x = event.pageX - this.offsetLeft;
         var y = event.pageY - this.offsetTop;
         // console.log(this.width, x/this.width)
         // console.log(this.height, y/this.height)
         const data = [x/this.width, y/this.height]
         console.log("Client clicks at: ", JSON.stringify(data))
-
+				const full_data = {
+					'coords':data,
+					'device':currentState
+				}
+				console.log(JSON.stringify(full_data))
         // connection.onopen = () => connection.send(JSON.stringify(data));
-        connection.send(JSON.stringify(data))
+        connection.send(JSON.stringify(full_data))
         connection.onerror = function (error) {
           console.log("an error occurred when sending/receiving data")
-          // document.getElementById("background_image").innerHTML = ipad_screenshot.jpg; 
+          // document.getElementById("background_image").innerHTML = ipad_screenshot.jpg;
         };
        }
      );
-  });   
-
-    // connection.onopen = function () {
-    //   console.log("betsa")
-    //   // connection is opened and ready to use
-    //   same = true
-    //   console.log("I'm going to log some data", data);
-    //   connection.send(JSON.stringify(data))
-    // };
-
-    // connection.addEventListener('open', function (event) {
-    //   console.log("I'm in the event listener now...");
-    //   connection.send('!!!!!!!!!!Hello Server!!!!!!!!!!!!!!');
-    //   connection.send(JSON.stringify(data))
-    // });
-
-      
-
-      // connection.onmessage = function (message) {
-      //   console.log(JSON.stringify(data))
-      //   // try to decode json (I assume that each message
-      //   // from server is json)
-      //   try {
-      //     var json = JSON.parse(message.data);
-      //     console.log(json)
-      //   } catch (e) {
-      //     console.log('This doesn\'t look like a valid JSON: ',
-      //         message.data);
-      //     return;
-      //   }
-      //   // handle incoming message
-      //   };
-
-
+  });
 </script>
 </html>
