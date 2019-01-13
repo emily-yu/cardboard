@@ -12,28 +12,28 @@ from io import BytesIO
 import json
 
 # create TCP/IP socket
-sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+# sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
-# retrieve local hostname
-local_hostname = socket.gethostname()
+# # retrieve local hostname
+# local_hostname = socket.gethostname()
 
-# get fully qualified hostname
-local_fqdn = socket.getfqdn()
+# # get fully qualified hostname
+# local_fqdn = socket.getfqdn()
 
-# get the according IP address
-# ip_address = socket.gethostbyname(local_hostname)
-ip_address = socket.gethostbyname("127.0.0.1")
+# # get the according IP address
+# # ip_address = socket.gethostbyname(local_hostname)
+# ip_address = socket.gethostbyname("127.0.0.1")
 
-# output hostname, domain name and IP address - change to unique IP address
-print ("working on %s (%s) with %s" % (local_hostname, local_fqdn, ip_address))
+# # output hostname, domain name and IP address - change to unique IP address
+# print ("working on %s (%s) with %s" % (local_hostname, local_fqdn, ip_address))
 
-# bind the socket to the port 23456
-server_address = (ip_address, 23456)
-print ('starting up on %s port %s' % server_address)
-sock.bind(server_address)
+# # bind the socket to the port 23456
+# server_address = (ip_address, 23456)
+# print ('starting up on %s port %s' % server_address)
+# sock.bind(server_address)
 
-# listen for incoming connections (server mode) with one connection at a time
-sock.listen(3)
+# # listen for incoming connections (server mode) with one connection at a time
+# sock.listen(3)
 
 current_socket = ''
 sockets = {}
@@ -51,7 +51,7 @@ async def run_server(websocket, path):
     while True:
         data = await websocket.recv()
         data = json.loads(data)
-
+        print (data)
         coords = data['coords']
 
         print(f"Received from client {coords}")
@@ -76,8 +76,8 @@ async def run_server(websocket, path):
         index = data['device']
 	# return payload
 
-# start_server = websockets.serve(run_server, 'localhost', 8765)
-start_server = websockets.serve(run_server, '10.30.3.126', 23456)
+start_server = websockets.serve(run_server, 'localhost', 23456)
+# start_server = websockets.serve(run_server, '10.30.3.126', 23456)
 # websockets.serve(run_server, '10.30.3.126', 23456)
 
 asyncio.get_event_loop().run_until_complete(start_server)
