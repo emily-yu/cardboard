@@ -77,7 +77,7 @@ async def run_server(websocket, path):
 	# return payload
 
 # start_server = websockets.serve(run_server, 'localhost', 8765)
-start_server = websockets.serve(run_server, '10.30.2.190', 23456)
+start_server = websockets.serve(run_server, '10.30.3.126', 23456)
 # websockets.serve(run_server, '10.30.3.126', 23456)
 
 asyncio.get_event_loop().run_until_complete(start_server)

@@ -28,17 +28,19 @@ nav {
 }
 </style>
 
-<img id='demo' class = 'display' src="pik.png" alt="Red dot">
+<img id='demo' class = 'display' src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAAUA
+AAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO
+    9TXL0Y4OHwAAAABJRU5ErkJggg==" alt="Red dot">
 
 <nav>
-  <div class = 'option' id='1' > <a href='google.com'> 1 </a>
-
+  <div class = 'option' id='1' > 
+    1
   </div>
-  <div class = 'option'id='2'> <a href='google.com'> 2 </a>
-
+  <div class = 'option'id='2'> 
+    2
   </div>
-  <div class = 'option' id='3'> <a href='google.com'> 3 </a>
-
+  <div class = 'option' id='3'> 
+    3
   </div>
 </nav>
 
@@ -60,7 +62,7 @@ nav {
 			});
 
     // var connection = new WebSocket('ws://127.0.0.1:23456');
-      var connection = new WebSocket('ws://10.30.2.190:23456');
+      var connection = new WebSocket('ws://10.30.3.126:23456');
 
       connection.onmessage = function (event) {
           document.getElementById("demo").src = "data:image/png;base64, " + event.data;
