@@ -46,15 +46,16 @@ async def run_server(websocket, path):
 
 		img = ImageGrab.grab()
 		img.save('screenshot.png')
-		time.sleep(2)
+		print(f'Took screenshot')
+		time.sleep(1.5)
 		# img.show()
 		buffered = BytesIO()
 		img.save(buffered, format="PNG")
 		image_base64 = base64.b64encode(buffered.getvalue())
 
-		await websocket.send(image_base64.decode('utf-8'))
+		# await websocket.send(image_base64.decode('utf-8'))
 
-		# await websocket.send('sending data back to client')
+		await websocket.send('sending data back to client')
 		
 		payload = {"base64": image_base64.decode('utf-8')}
 	# return payload
