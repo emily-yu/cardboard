@@ -40,7 +40,8 @@ async def run_server(websocket, path):
 
 		coords = await websocket.recv()
 		print(f"Received from client {coords}")
-		if len(coords) > 1:
+		print(len(coords))
+		if ',' in coords:
 			dimension = coords[1:-1].split(',')
 			m = PyMouse()
 			x_dim, y_dim = m.screen_size()
