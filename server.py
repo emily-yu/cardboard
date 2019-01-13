@@ -3,6 +3,7 @@ import socket
 import websockets
 import asyncio
 from pymouse import PyMouse
+from pykeyboard import PyKeyboard
 import time
 import pyscreenshot as ImageGrab
 from PIL import Image
