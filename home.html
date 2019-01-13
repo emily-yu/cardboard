@@ -39,6 +39,9 @@ AAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO
   <div class = 'option' id='2'>
     2
   </div>
+  <div class = 'option' id='3'>
+    3
+  </div>
 </nav>
 
 </body>
@@ -74,9 +77,11 @@ AAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO
         var xhr = new XMLHttpRequest();
 				xhr.onreadystatechange = function() {
 					if (this.readyState == 4 && this.status == 200) {
-						const dictionary = JSON.parse(this.responseText)
-						const base64 = dictionary["base64"]["base64"]
-						document.getElementById("demo").src = "data:image/png;base64, " + base64;
+						if(currentState != 3){
+							const dictionary = JSON.parse(this.responseText)
+							const base64 = dictionary["base64"]["base64"]
+							document.getElementById("demo").src = "data:image/png;base64, " + base64;
+						}
 					}
 				};
 

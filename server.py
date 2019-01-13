@@ -11,6 +11,7 @@ from PIL import Image
 import base64
 from io import BytesIO
 import json
+from phoneshortcuts import PhoneShortCuts
 
 app = Flask(__name__)
 
@@ -27,25 +28,30 @@ def screenshot():
     y = data['y']
     uniq_id = data['uniq_id']
 
-    if(my_id != uniq_id):
+    if(uniq_id == 3):
+        same = PhoneShortCuts()
+        same.touch(x, y)
+        same.home()
+    elif(uniq_id == 0):
+        # this clicks
+        m = PyMouse()
+        x_dim, y_dim = m.screen_size()
+        m.click(x_dim * x, y_dim * y)
+
+        #this gets image into base64
+        img = ImageGrab.grab()
+        img.save('screenshot.png')
+        time.sleep(0.2)
+
+        buffered = BytesIO()
+        img.save(buffered, format="PNG")
+        image_base64 = base64.b64encode(buffered.getvalue())
+
+        payload = {"base64": image_base64.decode('utf-8')}
+        return jsonify(payload)
+    else:
         return "lmao"
 
-    # this clicks
-    m = PyMouse()
-    x_dim, y_dim = m.screen_size()
-    m.click(x_dim * x, y_dim * y)
-
-    #this gets image into base64
-    img = ImageGrab.grab()
-    img.save('screenshot.png')
-    time.sleep(0.2)
-
-    buffered = BytesIO()
-    img.save(buffered, format="PNG")
-    image_base64 = base64.b64encode(buffered.getvalue())
-
-    payload = {"base64": image_base64.decode('utf-8')}
-    return jsonify(payload)
 
 if __name__ == "__main__":
     app.run(port=8000, debug=True)
