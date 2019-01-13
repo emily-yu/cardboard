@@ -40,14 +40,15 @@ async def run_server(websocket, path):
 
 		coords = await websocket.recv()
 		print(f"Received from client {coords}")
-		if len(coords) > 1:
+		print(len(coords))
+		if ',' in coords:
 			dimension = coords[1:-1].split(',')
 			m = PyMouse()
 			x_dim, y_dim = m.screen_size()
 			m.click(x_dim * float(dimension[0]), y_dim * float(dimension[1]))
 		else:
 			k = PyKeyboard()
-			k.tap_key(String.fromCharCode(coords))
+			k.tap_key(chr(int(coords) + 73))
 
 		img = ImageGrab.grab()
 		img.save('screenshot.png')

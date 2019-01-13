@@ -58,10 +58,6 @@ AAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO
           // document.getElementById("demo").src = "screenshot.png";
           document.getElementById("demo").src = "data:image/png;base64, " + event.data;
       }
-      window.onkeydown = function(e) {
-          var key = e.keyCode ? e.keyCode : e.which;
-          connection.send(key)
-      }
 
       $("img").on("click", function(event) {
         
